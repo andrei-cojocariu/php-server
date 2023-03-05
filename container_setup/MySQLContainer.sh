@@ -8,13 +8,21 @@ function createMySQLContainer() {
   lxc exec ${mysqlContainerName} -- mysql -e "CREATE USER 'root'@'%' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'; FLUSH PRIVILEGES;"
   lxc exec ${mysqlContainerName} -- systemctl restart mysql.service
   ips=($(lxc exec ${mysqlContainerName} -- hostname -I))
+
   file="src/temp/mysql.tmp"
+  if [[ ! -f $file ]]; then
+    mkdir "src/temp/"
+    cat /dev/null > ${file}
+  fi
+
   cat >> $file <<EOF
   mysql_host=${ips[0]}
   mysql_port=3306
   mysql_user=root
   mysql_pass=
 EOF
+
+  return
 }
 
 function checkMySQLContainer() {
