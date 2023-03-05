@@ -3,6 +3,7 @@ mysqlContainerName="FTT-DB"
 
 function createMySQLContainer() {
   lxc launch ubuntu:20.04 ${mysqlContainerName}
+  lxc exec ${phpContainerName} -- apt-get update
 
   lxc exec ${mysqlContainerName} -- apt install mysql-server
   lxc exec FTT-DB -- sed -i '/bind-address/,/bind-address/ s/^/#/' /etc/mysql/mysql.conf.d/mysqld.cnf
