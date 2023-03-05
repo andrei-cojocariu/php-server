@@ -9,6 +9,6 @@ echo "Checking server requirements..."
 if checkApache; then
   if checkLXD-LXC; then
     checkMySQLContainer
-#   createPHP7-4Container
+    checkPHPContainer
   fi
 fi

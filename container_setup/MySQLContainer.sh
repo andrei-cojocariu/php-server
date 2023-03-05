@@ -3,10 +3,12 @@ mysqlContainerName="FTT-DB"
 
 function createMySQLContainer() {
   lxc launch ubuntu:20.04 ${mysqlContainerName}
+
   lxc exec ${mysqlContainerName} -- apt install mysql-server
   lxc exec FTT-DB -- sed -i '/bind-address/,/bind-address/ s/^/#/' /etc/mysql/mysql.conf.d/mysqld.cnf
   lxc exec ${mysqlContainerName} -- mysql -e "CREATE USER 'root'@'%' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'; FLUSH PRIVILEGES;"
   lxc exec ${mysqlContainerName} -- systemctl restart mysql.service
+
   ips=($(lxc exec ${mysqlContainerName} -- hostname -I))
 
   file="src/temp/mysql.tmp"
@@ -30,23 +32,22 @@ function checkMySQLContainer() {
     echo -n "MySQL Container: ${mysqlContainerName} exists! Do you wish to recreate: "
     echo
 
-    select yn in "recreate" "cancel"; do
+    select yn in "recreate" "skip"; do
       case $yn in
         recreate )
-          echo "Stopping ${mysqlContainerName};"
           lxc stop ${mysqlContainerName}
           lxc delete ${mysqlContainerName}
 
-          echo "ReCreating MySQL ${mysqlContainerName};"
+          echo "ReCreating MySQL Container ${mysqlContainerName};"
           createMySQLContainer
           return ;;
-        cancel )
+        skip )
           return
       esac
     done
   fi
 
-  echo "Creating MySQL ${mysqlContainerName};"
+  echo "Creating MySQL Container ${mysqlContainerName};"
   createMySQLContainer
 
   return
