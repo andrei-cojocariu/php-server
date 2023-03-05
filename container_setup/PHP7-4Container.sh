@@ -22,9 +22,9 @@ function createPHPContainer() {
 
   cat >> $file <<EOF
   php_host=${ips[0]}
-  mysql_port=3306
-  mysql_user=root
-  mysql_pass=
+  ftp_port=3306
+  ftp_user=root
+  ftp_pass=
 EOF
 
   return
