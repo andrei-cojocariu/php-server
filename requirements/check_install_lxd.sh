@@ -10,7 +10,7 @@ function checkLXD-LXC() {
       command -v lxd >/dev/null 2>&1 ||
     {
       echo >&2 "LXD/LXC Containers are not installed. Installing..."
-      snap install lxd
+      apt install lxd
       lxd init
     }
   fi
