@@ -1,14 +1,18 @@
 #! /bin/bash
 
 function checkApache() {
-  apacheVersion=$(apache2 --version 2>/dev/null)
+  apacheFullVersion=$(apache2 -v 2>/dev/null)
 
-  if [[ ! ${apacheVersion} ]]; then
-    echo "Apache2 Not Install. Installing... "
-    apt install apache2-bin
+  if [[ ${apacheFullVersion} ]]; then
+    echo "Great! You are running:"
+    echo "${apacheFullVersion}"
   else
-    echo "Great! You are running: ${apacheVersion} ."
-    return
+      command -v apache2 >/dev/null 2>&1 ||
+    {
+      echo >&2 "Apache2 is not installed. Installing..."
+      sudo apt install apache2
+    }
   fi
+
   return
 }
