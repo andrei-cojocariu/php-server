@@ -1,3 +1,5 @@
+#! /bin/bash
+
 function checkLXD-LXC() {
   lxdVersion=$(lxd -v 2>/dev/null)
 
@@ -13,5 +15,3 @@ function checkLXD-LXC() {
   fi
   return
 }
-
-checkLXD-LXC
