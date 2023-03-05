@@ -1,0 +1,3 @@
+function checkLXD-LXC() {
+  return
+}
