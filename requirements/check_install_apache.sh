@@ -10,7 +10,7 @@ function checkApache() {
       command -v apache2 >/dev/null 2>&1 ||
     {
       echo >&2 "Apache2 is not installed. Installing..."
-      sudo apt install apache2
+      apt install apache2
     }
   fi
 

@@ -6,6 +6,6 @@ source params.env
 echo "Checking server requirements..."
 if checkApache; then
   if checkLXD-LXC; then
-    echo "installing lxd"
+    echo ""
   fi
 fi
