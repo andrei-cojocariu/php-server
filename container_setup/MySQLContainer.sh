@@ -43,5 +43,3 @@ function checkMySQLContainer() {
 
   return
 }
-
-checkMySQLContainer
