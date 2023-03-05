@@ -13,5 +13,6 @@ function checkLXD-LXC() {
       apt install lxd
     }
   fi
+
   return
 }
