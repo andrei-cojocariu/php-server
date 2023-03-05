@@ -1,7 +1,7 @@
 #! /bin/bash
 
 function checkLXD-LXC() {
-  lxdVersion=$(lxd -v 2>/dev/null)
+  lxdVersion=$(lxd --version 2>/dev/null)
 
   if [[ ${lxdVersion} ]]; then
     echo "Great! You are running:"
