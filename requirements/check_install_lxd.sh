@@ -4,7 +4,7 @@ function checkLXD-LXC() {
   lxdVersion=$(lxd --version 2>/dev/null)
 
   if [[ ${lxdVersion} ]]; then
-    echo "Great! You are running LXD/LXC:"
+    echo "Great! You are running LXD/LXC Version:"
     echo "${lxdVersion}"
   else
       command -v lxd >/dev/null 2>&1 ||
