@@ -14,8 +14,6 @@ function createPHPContainer() {
   #Install Apache2 LTS
   lxc exec ${phpContainerName} -- apt -y install apache2
   lxc exec ${phpContainerName} -- rm -rf /var/www/html/ * -R
-#  sed -i 's/old-text/new-text/g' input.txt
-
   #install PHP7.4
   lxc exec ${phpContainerName} -- apt -y install software-properties-common
   lxc exec ${phpContainerName} -- add-apt-repository -y ppa:ondrej/php
@@ -40,6 +38,10 @@ function createPHPContainer() {
   lxc exec ${phpContainerName} -- curl -sS 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' -o /tmp/symfony-setup.sh
   lxc exec ${phpContainerName} -- bash /tmp/symfony-setup.sh
   lxc exec ${phpContainerName} -- apt install symfony-cli
+
+  #Update Document Root for Symfony public and Restart apache2 server
+  lxc exec ${phpContainerName} -- sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/public/g' /etc/apache2/sites-enabled/000-default.conf
+  lxc exec ${phpContainerName} -- service apache2 restart
 
   ips=($(lxc exec ${phpContainerName} -- hostname -I))
 
