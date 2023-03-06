@@ -5,12 +5,21 @@ function createPHPContainer() {
   lxc launch ubuntu:20.04 ${phpContainerName}
   lxc exec ${phpContainerName} -- apt-get update
 
+  #Install Apache2 LTS
   lxc exec ${phpContainerName} -- apt -y install apache2
+
+  #install PHP7.4
   lxc exec ${phpContainerName} -- apt -y install software-properties-common
   lxc exec ${phpContainerName} -- add-apt-repository -y ppa:ondrej/php
   lxc exec ${phpContainerName} -- apt-get update
   lxc exec ${phpContainerName} -- apt -y install php7.4
   lxc exec ${phpContainerName} -- apt-get install -y php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath
+
+  #install GIT
+  lxc exec ${phpContainerName} -- apt -y install git
+
+  #Install Composer
+  lxc exec ${phpContainerName} -- cd ~; apt -y install php-cli unzip; curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php; php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer;
 
   ips=($(lxc exec ${phpContainerName} -- hostname -I))
 
