@@ -55,14 +55,14 @@ function checkPHPContainer() {
       echo -n "PHP Container: ${phpContainerName} exists! What do you wish to do with it: "
       echo
 
-      select yn in "update" "recreate" "skip"; do
+      select yn in "update-project" "recreate-container" "skip"; do
         case $yn in
-          update )
+          update-project)
               echo "Update Fruit Test Project;"
-              createFruitTestProject
+              updateFruitTestProject
               return
             ;;
-          recreate )
+          recreate-container )
             lxc stop ${phpContainerName}
             lxc delete ${phpContainerName}
 
