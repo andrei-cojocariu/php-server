@@ -14,11 +14,14 @@ function updateFruitTestProject() {
   select yn in "recreate-project" "full-update" "git-update" "exit"; do
     case $yn in
       recreate-project )
-        return ;;
+        updateFruitTestProject
+        ;;
       full-update )
-        return ;;
+        updateFruitTestProject
+        ;;
       git-update )
-        return ;;
+        updateFruitTestProject
+        ;;
       exit )
         return
     esac
