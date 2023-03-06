@@ -18,11 +18,6 @@ function recreateFruitTestProject() {
 
   return
 }
-function createFruitTestProject() {
-  echo ${phpContainerName}
-
-  return
-}
 
 function updateFruitTestProject() {
   echo "Recreate Project = removes project files and resets it including mysql (git clone, composer install)"
