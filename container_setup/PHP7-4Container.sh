@@ -3,6 +3,8 @@ phpContainerName="FTT-PHP74"
 
 function createPHPContainer() {
   lxc launch ubuntu:20.04 ${phpContainerName}
+
+  # Temporarily add a known DNS (Google's DNS server)
   lxc exec ${phpContainerName} -- apt-get update
 
   #Install Apache2 LTS
