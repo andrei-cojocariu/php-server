@@ -11,7 +11,7 @@ function createMySQLContainer() {
 
   #Install MySQL LTS
   lxc exec ${mysqlContainerName} -- apt -y install mysql-server
-  lxc exec FTT-DB -- sed -i '/bind-address/,/bind-address/ s/^/#/' /etc/mysql/mysql.conf.d/mysqld.cnf
+  lxc exec ${mysqlContainerName} -- sed -i '/bind-address/,/bind-address/ s/^/#/' /etc/mysql/mysql.conf.d/mysqld.cnf
   lxc exec ${mysqlContainerName} -- mysql -e "CREATE USER 'root'@'%' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'; FLUSH PRIVILEGES;"
   lxc exec ${mysqlContainerName} -- systemctl restart mysql.service
 

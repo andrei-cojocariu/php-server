@@ -14,6 +14,7 @@ function createPHPContainer() {
   #Install Apache2 LTS
   lxc exec ${phpContainerName} -- apt -y install apache2
   lxc exec ${phpContainerName} -- rm -rf /var/www/html/ * -R
+#  sed -i 's/old-text/new-text/g' input.txt
 
   #install PHP7.4
   lxc exec ${phpContainerName} -- apt -y install software-properties-common
