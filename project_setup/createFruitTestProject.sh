@@ -1,7 +1,7 @@
 #! /bin/bash
 
 function createFruitTestProject() {
-  echo "doing something"
+  echo ${phpContainerName}
 
   return
 }

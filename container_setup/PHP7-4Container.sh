@@ -70,7 +70,7 @@ function checkPHPContainer() {
             createPHPContainer
 
             echo "Creating Fruit Test Project;"
-            createFruitTestProject
+            createFruitTestProject ${phpContainerName}
             return
             ;;
           skip )
