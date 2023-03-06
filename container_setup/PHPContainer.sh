@@ -1,5 +1,5 @@
 #! /bin/bash
-#. ./src/project_setup/createFruitTestProject.sh
+. ./src/project_setup/createFruitTestProject.sh
 
 phpContainerName="FTT-PHP82"
 
