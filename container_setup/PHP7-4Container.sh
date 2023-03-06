@@ -60,6 +60,7 @@ function checkPHPContainer() {
           update )
               echo "Update Fruit Test Project;"
               createFruitTestProject
+              return
             ;;
           recreate )
             lxc stop ${phpContainerName}
@@ -67,6 +68,10 @@ function checkPHPContainer() {
 
             echo "ReCreating PHP Container ${phpContainerName};"
             createPHPContainer
+
+            echo "Creating Fruit Test Project;"
+            createFruitTestProject
+            return
             ;;
           skip )
             return
