@@ -7,19 +7,19 @@ function createFruitTestProject() {
 }
 
 function updateFruitTestProject() {
+  echo "Recreate Project = removes project files and resets it (git checkout, composer install)"
   echo "Full Update = redo database and code (git checkout, composer install etc)"
   echo "Git Update = clear cache and code update"
-  echo "Recreate = removes project files and resets is (git checkout, composer install)"
 
-  select yn in "full-update" "git-update" "recreate" "skip"; do
+  select yn in "recreate-project" "full-update" "git-update" "exit"; do
     case $yn in
+      recreate-project )
+        return ;;
       full-update )
         return ;;
       git-update )
         return ;;
-      recreate )
-        return ;;
-      skip )
+      exit )
         return
     esac
   done
