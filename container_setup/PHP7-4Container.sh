@@ -34,9 +34,9 @@ function createPHPContainer() {
 
   ips=($(lxc exec ${phpContainerName} -- hostname -I))
 
-  file="src/temp/php74.tmp"
+  file="temp/php74.tmp"
   if [[ ! -f $file ]]; then
-    mkdir "src/temp/"
+    mkdir "temp/"
     cat /dev/null > ${file}
   fi
 

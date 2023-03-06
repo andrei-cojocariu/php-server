@@ -17,9 +17,9 @@ function createMySQLContainer() {
 
   ips=($(lxc exec ${mysqlContainerName} -- hostname -I))
 
-  file="src/temp/mysql.tmp"
+  file="temp/mysql.tmp"
   if [[ ! -f $file ]]; then
-    mkdir "src/temp/"
+    mkdir "temp/"
     cat /dev/null > ${file}
   fi
 
