@@ -1,5 +1,11 @@
 #! /bin/bash
 
+function createFruitTestProject() {
+  echo "doing something"
+
+  return
+}
+
 function updateFruitTestProject() {
     select yn in "full-update" "git-update" "recreate" "skip"; do
       case $yn in
