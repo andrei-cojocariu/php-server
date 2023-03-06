@@ -73,5 +73,3 @@ function checkPHPContainer() {
     echo "Creating PHP Container ${phpContainerName};"
     createPHPContainer
 }
-
-checkPHPContainer
