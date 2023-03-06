@@ -1,5 +1,5 @@
 #! /bin/bash
-. ./src/project_setup/createFruitTestProject.sh
+#. ./src/project_setup/createFruitTestProject.sh
 
 phpContainerName="FTT-PHP82"
 
@@ -14,7 +14,8 @@ function createPHPContainer() {
   #Install Apache2 LTS
   lxc exec ${phpContainerName} -- apt -y install apache2
   lxc exec ${phpContainerName} -- rm -rf /var/www/html/ * -R
-  #install PHP7.4
+
+  #install PHP8.2
   lxc exec ${phpContainerName} -- apt -y install software-properties-common
   lxc exec ${phpContainerName} -- add-apt-repository -y ppa:ondrej/php
   lxc exec ${phpContainerName} -- apt-get update
@@ -43,8 +44,6 @@ function createPHPContainer() {
   lxc exec ${phpContainerName} -- sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/public/g' /etc/apache2/sites-enabled/000-default.conf
   lxc exec ${phpContainerName} -- service apache2 restart
 
-  ips=($(lxc exec ${phpContainerName} -- hostname -I))
-
   file="temp/php82.tmp"
   if [[ ! -f $file ]]; then
     mkdir "temp/"
@@ -57,6 +56,9 @@ function createPHPContainer() {
   ftp_user=root
   ftp_pass=
 EOF
+
+  echo "Creating Fruit Test Project;"
+  createFruitTestProject ${phpContainerName}
 
   return
 }
@@ -80,8 +82,6 @@ function checkPHPContainer() {
             echo "ReCreating PHP Container ${phpContainerName};"
             createPHPContainer
 
-            echo "Creating Fruit Test Project;"
-            createFruitTestProject ${phpContainerName}
             return
             ;;
           skip )
@@ -92,9 +92,6 @@ function checkPHPContainer() {
 
     echo "Creating PHP Container ${phpContainerName};"
     createPHPContainer
-
-    echo "Creating Fruit Test Project;"
-    createFruitTestProject ${phpContainerName}
 
     return
 }
