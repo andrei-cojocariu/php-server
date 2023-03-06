@@ -32,6 +32,11 @@ function createPHPContainer() {
   lxc exec ${phpContainerName} -- curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
   lxc exec ${phpContainerName} -- php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
+  #Install Symfony CLI
+  lxc exec ${phpContainerName} -- curl -sS 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' -o /tmp/symfony-setup.sh
+  lxc exec ${phpContainerName} -- bash /tmp/symfony-setup.sh
+  lxc exec ${phpContainerName} -- apt install symfony-cli
+
   ips=($(lxc exec ${phpContainerName} -- hostname -I))
 
   file="temp/php74.tmp"

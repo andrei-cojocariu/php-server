@@ -1,5 +1,15 @@
 #! /bin/bash
+cloneFTTRepo="https://github.com/andrei-cojocariu/fruit-test-project.git"
 
+function recreateFruitTestProject()
+{
+  phpContainerName=${phpContainerName}
+
+  lxc exec ${phpContainerName} -- rm -rf /var/www/html/ -R
+  lxc exec ${phpContainerName} -- git clone $cloneFTTRepo /var/www/html
+
+  return
+}
 function createFruitTestProject() {
   echo ${phpContainerName}
 
@@ -7,20 +17,22 @@ function createFruitTestProject() {
 }
 
 function updateFruitTestProject() {
-  echo "Recreate Project = removes project files and resets it (git checkout, composer install)"
-  echo "Full Update = redo database and code (git checkout, composer install etc)"
+  echo "Recreate Project = removes project files and resets it including mysql (git checkout, composer install)"
+  echo "Full Update = redo database (repopulates) and code (git checkout, composer update etc)"
   echo "Git Update = clear cache and code update"
-  echo ${phpContainerName}
+  phpContainerName=${phpContainerName}
   select yn in "recreate-project" "full-update" "git-update" "exit"; do
     case $yn in
       recreate-project )
-        updateFruitTestProject
+        recreateFruitTestProject ${phpContainerName}
+
+        updateFruitTestProject ${phpContainerName}
         ;;
       full-update )
-        updateFruitTestProject
+        updateFruitTestProject ${phpContainerName}
         ;;
       git-update )
-        updateFruitTestProject
+        updateFruitTestProject ${phpContainerName}
         ;;
       exit )
         exit
@@ -29,3 +41,6 @@ function updateFruitTestProject() {
 
   return
 }
+
+#ToDo Remove this:
+updateFruitTestProject "FTT-PHP74"
