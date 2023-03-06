@@ -59,7 +59,7 @@ function checkPHPContainer() {
         case $yn in
           update-project)
               echo "Update Fruit Test Project;"
-              updateFruitTestProject
+              updateFruitTestProject ${phpContainerName}
               return
             ;;
           recreate-container )
@@ -83,7 +83,7 @@ function checkPHPContainer() {
     createPHPContainer
 
     echo "Creating Fruit Test Project;"
-    createFruitTestProject
+    createFruitTestProject ${phpContainerName}
 
     return
 }
