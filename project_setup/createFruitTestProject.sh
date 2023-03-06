@@ -1,5 +1,5 @@
 #! /bin/bash
-cloneFTTRepo="https://github.com/andrei-cojocariu/fruit-test-project.git"
+cloneFTTRepo="https://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@github.com/andrei-cojocariu/fruit-test-project.git"
 
 function recreateFruitTestProject()
 {
@@ -41,6 +41,6 @@ function updateFruitTestProject() {
 
   return
 }
-
-#ToDo Remove this:
-updateFruitTestProject "FTT-PHP74"
+#
+##ToDo Remove this:
+#updateFruitTestProject "FTT-PHP74"
