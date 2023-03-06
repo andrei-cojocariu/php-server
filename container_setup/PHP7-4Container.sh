@@ -26,7 +26,9 @@ function createPHPContainer() {
   lxc exec ${phpContainerName} -- apt -y install git
 
   #Install Composer
-  lxc exec ${phpContainerName} -- cd ~; apt -y install php-cli unzip; curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php; php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer;
+  lxc exec ${phpContainerName} -- apt -y install php-cli unzip
+  lxc exec ${phpContainerName} -- curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+  lxc exec ${phpContainerName} -- php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
   ips=($(lxc exec ${phpContainerName} -- hostname -I))
 
