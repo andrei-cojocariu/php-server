@@ -46,6 +46,14 @@ function createPHPContainer() {
   lxc exec ${phpContainerName} -- a2enmod rewrite
   lxc exec ${phpContainerName} -- service apache2 restart
 
+  #Activate FTP Account
+  lxc exec ${phpContainerName} -- apt-get install -y vsftpd
+  lxc exec ${phpContainerName} -- sed -i 's/root/#root/g' /etc/ftpusers
+  lxc exec ${phpContainerName} -- sed -i '/write_enable=YES/s/^#//g' /etc/vsftpd.conf
+  lxc exec ${phpContainerName} -- systemctl restart vsftpd
+  lxc file push installer/add_lxc_root_password.sh ${phpContainerName}/home/
+  lxc exec ${phpContainerName} -- bash /home/add_lxc_root_password.sh
+
   ips=($(lxc exec ${mysqlContainerName} -- hostname -I))
   file="temp/php82.tmp"
   if [[ ! -f $file ]]; then
@@ -56,8 +64,8 @@ function createPHPContainer() {
   cat > $file <<EOF
   php_host=${ips[0]}
   ftp_port=
-  ftp_user=root
-  ftp_pass=
+  ftp_user=ftp_user
+  ftp_pass=ftp_pass
 EOF
 
   echo "Creating Fruit Test Project;"
