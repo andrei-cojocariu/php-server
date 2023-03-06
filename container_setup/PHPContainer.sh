@@ -42,6 +42,8 @@ function createPHPContainer() {
 
   #Update Document Root for Symfony public and Restart apache2 server
   lxc exec ${phpContainerName} -- sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/public/g' /etc/apache2/sites-enabled/000-default.conf
+  lxc exec ${phpContainerName} -- sed -i '/^<\/VirtualHost>.*/i <Directory \/var\/www\/html> \n AllowOverride All \n <\/Directory>' /etc/apache2/sites-enabled/000-default.conf
+  lxc exec ${phpContainerName} -- a2enmod rewrite
   lxc exec ${phpContainerName} -- service apache2 restart
 
   ips=($(lxc exec ${mysqlContainerName} -- hostname -I))
