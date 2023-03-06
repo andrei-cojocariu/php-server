@@ -1,5 +1,5 @@
 #! /bin/bash
-cloneFTTRepo="https://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@github.com/andrei-cojocariu/fruit-test-project.git"
+cloneFTTRepo="https://github.com/andrei-cojocariu/fruit-test-project.git"
 
 function recreateFruitTestProject()
 {
