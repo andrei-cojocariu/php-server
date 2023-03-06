@@ -5,7 +5,7 @@ function createMySQLContainer() {
   lxc launch ubuntu:20.04 ${mysqlContainerName}
 
   # Temporarily add a known DNS (Google's DNS server)
-  echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
+  lxc exec ${mysqlContainerName} -- echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
   lxc exec ${mysqlContainerName} -- apt-get update
 
   #Install MySQL LTS

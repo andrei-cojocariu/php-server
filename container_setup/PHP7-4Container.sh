@@ -5,6 +5,7 @@ function createPHPContainer() {
   lxc launch ubuntu:20.04 ${phpContainerName}
 
   # Temporarily add a known DNS (Google's DNS server)
+  lxc exec ${mysqlContainerName} -- echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
   lxc exec ${phpContainerName} -- apt-get update
 
   #Install Apache2 LTS
