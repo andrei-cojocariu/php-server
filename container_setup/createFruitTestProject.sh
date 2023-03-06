@@ -1,9 +1,11 @@
 #! /bin/bash
 
 function createFruitTestProject() {
-    select yn in "git update" "recreate" "skip"; do
+    select yn in "full-update" "git-update" "recreate" "skip"; do
       case $yn in
-        git_update )
+        full-update )
+          return ;;
+        git-update )
           return ;;
         recreate )
           return ;;
