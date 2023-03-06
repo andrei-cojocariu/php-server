@@ -7,7 +7,7 @@ function createPHPContainer() {
   # Temporarily add a known DNS (Google's DNS server)
   lxc exec ${phpContainerName} -- echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
   lxc exec ${phpContainerName} -- apt-get update
-  lxc exec ${phpContainerName} -- apt update && apt upgrade
+  lxc exec ${phpContainerName} -- apt -y update && apt -y upgrade
 
   #Install Apache2 LTS
   lxc exec ${phpContainerName} -- apt -y install apache2
