@@ -1,7 +1,7 @@
 #! /bin/bash
 . ./src/project_setup/createFruitTestProject.sh
 
-phpContainerName="FTT-PHP74"
+phpContainerName="FTT-PHP82"
 
 function createPHPContainer() {
   lxc launch ubuntu:20.04 ${phpContainerName}
@@ -18,8 +18,8 @@ function createPHPContainer() {
   lxc exec ${phpContainerName} -- apt -y install software-properties-common
   lxc exec ${phpContainerName} -- add-apt-repository -y ppa:ondrej/php
   lxc exec ${phpContainerName} -- apt-get update
-  lxc exec ${phpContainerName} -- apt -y install php7.4
-  lxc exec ${phpContainerName} -- apt-get install -y php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath php-xml
+  lxc exec ${phpContainerName} -- apt -y install php8.2
+  lxc exec ${phpContainerName} -- apt-get install -y php8.2-cli php8.2-json php8.2-common php8.2-mysql php8.2-zip php8.2-gd php8.2-mbstring php8.2-curl php8.2-xml php8.2-bcmath php-xml
 
   #Install Curl
   lxc exec ${phpContainerName} -- apt -y install curl
@@ -41,7 +41,7 @@ function createPHPContainer() {
 
   ips=($(lxc exec ${phpContainerName} -- hostname -I))
 
-  file="temp/php74.tmp"
+  file="temp/php82.tmp"
   if [[ ! -f $file ]]; then
     mkdir "temp/"
     cat /dev/null > ${file}

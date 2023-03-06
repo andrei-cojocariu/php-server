@@ -1,12 +1,13 @@
 #! /bin/bash
-cloneFTTRepo="https://github.com/andrei-cojocariu/fruit-test-project.git"
+source ../../params.env
 
 function recreateFruitTestProject()
 {
-  phpContainerName=${phpContainerName}
+  phpContainerName=${1}
 
-  lxc exec ${phpContainerName} -- rm -rf /var/www/html/ -R
-  lxc exec ${phpContainerName} -- git clone $cloneFTTRepo /var/www/html
+  lxc exec ${phpContainerName} -- rm -rf /var/www/html/ * -R
+  lxc exec ${phpContainerName} -- git clone ${cloneFTTRepo} /var/www/html
+  lxc exec ${phpContainerName} -- composer install -n --working-dir=/var/www/html
 
   return
 }
@@ -17,10 +18,10 @@ function createFruitTestProject() {
 }
 
 function updateFruitTestProject() {
-  echo "Recreate Project = removes project files and resets it including mysql (git checkout, composer install)"
+  echo "Recreate Project = removes project files and resets it including mysql (git clone, composer install)"
   echo "Full Update = redo database (repopulates) and code (git checkout, composer update etc)"
   echo "Git Update = clear cache and code update"
-  phpContainerName=${phpContainerName}
+  phpContainerName="$1"
   select yn in "recreate-project" "full-update" "git-update" "exit"; do
     case $yn in
       recreate-project )
@@ -42,5 +43,5 @@ function updateFruitTestProject() {
   return
 }
 #
-##ToDo Remove this:
-#updateFruitTestProject "FTT-PHP74"
+#ToDo Remove this:
+#updateFruitTestProject "FTT-PHP82"
