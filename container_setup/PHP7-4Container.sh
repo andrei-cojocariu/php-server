@@ -1,5 +1,5 @@
 #! /bin/bash
-. ./src/requirements/check_install_apache.sh
+. ./src/requirements/createFruitTestProject.sh
 
 phpContainerName="FTT-PHP74"
 
