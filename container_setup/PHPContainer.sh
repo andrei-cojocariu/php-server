@@ -44,6 +44,7 @@ function createPHPContainer() {
   lxc exec ${phpContainerName} -- sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/public/g' /etc/apache2/sites-enabled/000-default.conf
   lxc exec ${phpContainerName} -- service apache2 restart
 
+  ips=($(lxc exec ${mysqlContainerName} -- hostname -I))
   file="temp/php82.tmp"
   if [[ ! -f $file ]]; then
     mkdir "temp/"
