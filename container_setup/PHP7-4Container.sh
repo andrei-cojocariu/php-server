@@ -1,4 +1,6 @@
 #! /bin/bash
+. ./src/requirements/check_install_apache.sh
+
 phpContainerName="FTT-PHP74"
 
 function createPHPContainer() {
@@ -56,6 +58,8 @@ function checkPHPContainer() {
       select yn in "update" "recreate" "skip"; do
         case $yn in
           update )
+              echo "Update Fruit Test Project;"
+              createFruitTestProject
             return ;;
           recreate )
             lxc stop ${phpContainerName}
@@ -72,4 +76,9 @@ function checkPHPContainer() {
 
     echo "Creating PHP Container ${phpContainerName};"
     createPHPContainer
+
+    echo "Creating Fruit Test Project;"
+    createFruitTestProject
+
+    return
 }
