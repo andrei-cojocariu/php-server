@@ -23,7 +23,7 @@ function updateFruitTestProject() {
         updateFruitTestProject
         ;;
       exit )
-        return
+        exit
     esac
   done
 
