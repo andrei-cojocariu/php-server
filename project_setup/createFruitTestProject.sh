@@ -1,13 +1,20 @@
 #! /bin/bash
-source ../../params.env
+source params.env
 
-function recreateFruitTestProject()
-{
+function createFruitTestProject() {
+  phpContainerName=${1}
+
+  lxc exec ${phpContainerName} -- git clone ${cloneFTTRepo} /var/www/html
+  lxc exec ${phpContainerName} -- composer install -n --working-dir=/var/www/html
+
+  return
+}
+
+function recreateFruitTestProject() {
   phpContainerName=${1}
 
   lxc exec ${phpContainerName} -- rm -rf /var/www/html/ * -R
-  lxc exec ${phpContainerName} -- git clone ${cloneFTTRepo} /var/www/html
-  lxc exec ${phpContainerName} -- composer install -n --working-dir=/var/www/html
+  createFruitTestProject ${phpContainerName}
 
   return
 }
