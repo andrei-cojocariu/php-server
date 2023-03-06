@@ -7,6 +7,7 @@ function createPHPContainer() {
   # Temporarily add a known DNS (Google's DNS server)
   lxc exec ${phpContainerName} -- echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
   lxc exec ${phpContainerName} -- apt-get update
+  lxc exec ${phpContainerName} -- apt update && apt upgrade
 
   #Install Apache2 LTS
   lxc exec ${phpContainerName} -- apt -y install apache2
@@ -17,6 +18,9 @@ function createPHPContainer() {
   lxc exec ${phpContainerName} -- apt-get update
   lxc exec ${phpContainerName} -- apt -y install php7.4
   lxc exec ${phpContainerName} -- apt-get install -y php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath
+
+  #Install Curl
+  lxc exec ${phpContainerName} -- apt install curl
 
   #install GIT
   lxc exec ${phpContainerName} -- apt -y install git

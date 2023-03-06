@@ -7,6 +7,7 @@ function createMySQLContainer() {
   # Temporarily add a known DNS (Google's DNS server)
   lxc exec ${mysqlContainerName} -- echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
   lxc exec ${mysqlContainerName} -- apt-get update
+  lxc exec ${mysqlContainerName} -- apt update && apt upgrade
 
   #Install MySQL LTS
   lxc exec ${mysqlContainerName} -- apt -y install mysql-server
