@@ -7,7 +7,7 @@ function createFruitTestProject() {
   lxc exec ${phpContainerName} -- git clone ${cloneFTTRepo} /var/www/html
   lxc exec ${phpContainerName} -- composer install -n --working-dir=/var/www/html
 
-  return
+  updateFruitTestProject ${phpContainerName}
 }
 
 function recreateFruitTestProject() {
