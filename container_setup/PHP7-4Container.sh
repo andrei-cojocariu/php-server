@@ -40,7 +40,7 @@ function createPHPContainer() {
     cat /dev/null > ${file}
   fi
 
-  cat >> $file <<EOF
+  cat > $file <<EOF
   php_host=${ips[0]}
   ftp_port=
   ftp_user=root

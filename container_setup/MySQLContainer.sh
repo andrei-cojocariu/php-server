@@ -23,7 +23,7 @@ function createMySQLContainer() {
     cat /dev/null > ${file}
   fi
 
-  cat >> $file <<EOF
+  cat > $file <<EOF
   mysql_host=${ips[0]}
   mysql_port=3306
   mysql_user=root
