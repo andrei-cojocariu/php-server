@@ -19,6 +19,7 @@ function createFruitTestProject() {
   lxc exec ${phpContainerName} -- sed -i '/DATABASE_URL=/d' /var/www/html/.env
   lxc exec ${phpContainerName} -- sed -i "/^###< doctrine\/doctrine-bundle ###.*/a ${dbString}" /var/www/html/.env
   lxc exec ${phpContainerName} -- php /var/www/html/bin/console doctrine:database:create
+  lxc exec ${phpContainerName} -- php /var/www/html/bin/console doctrine:migrations:migrate
 
   updateFruitTestProject ${phpContainerName}
   return
