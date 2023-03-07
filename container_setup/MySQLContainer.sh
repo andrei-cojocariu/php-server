@@ -16,6 +16,7 @@ function createMySQLContainer() {
   lxc exec ${mysqlContainerName} -- systemctl restart mysql.service
 
   ips=($(lxc exec ${mysqlContainerName} -- hostname -I))
+
   file="temp/mysql.sh"
   if [[ ! -f $file ]]; then
     mkdir "temp/"

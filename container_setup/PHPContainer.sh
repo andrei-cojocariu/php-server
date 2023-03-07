@@ -54,7 +54,8 @@ function createPHPContainer() {
   lxc file push installer/add_lxc_root_password.sh ${phpContainerName}/home/
   lxc exec ${phpContainerName} -- bash /home/add_lxc_root_password.sh
 
-  ips=($(lxc exec ${mysqlContainerName} -- hostname -I))
+  ips=($(lxc exec ${phpContainerName} -- hostname -I))
+
   file="temp/php82.sh"
   if [[ ! -f $file ]]; then
     mkdir "temp/"
