@@ -8,7 +8,7 @@ function createFruitTestProject() {
   lxc exec ${phpContainerName} -- composer install -n --working-dir=/var/www/html
 
   #Add DB String to env
-  dbString="DATABASE_URL='${type}://app:${user}@${host}:${port}/app?serverVersion=${version}&charset=utf8mb4'"
+  dbString="DATABASE_URL='${type}://${user}:${pass}@${host}:${port}/${database}?serverVersion=${version}&charset=utf8mb4'"
   lxc exec ${phpContainerName} -- sed -i '/DATABASE_URL=/d' /var/www/html/.env
   lxc exec ${phpContainerName} -- sed -i "/^###< doctrine\/doctrine-bundle ###.*/a ${dbString}" /var/www/html/.env
 

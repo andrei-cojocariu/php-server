@@ -31,6 +31,7 @@ function createMySQLContainer() {
   user=root
   pass=
   version=8
+  database=fruit-test
 EOF
 
   return
