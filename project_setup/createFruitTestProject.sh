@@ -1,24 +1,34 @@
 #! /bin/bash
 . ./temp/mysql.sh
 
+function removeDataBase() {
+  phpContainerName=${1}
+
+  lxc exec ${phpContainerName} -- php /var/www/html/bin/console doctrine:database:drop --force
+  return
+}
+
 function createFruitTestProject() {
   phpContainerName=${1}
 
   lxc exec ${phpContainerName} -- git clone ${cloneFTTRepo} /var/www/html
   lxc exec ${phpContainerName} -- composer install -n --working-dir=/var/www/html
 
-  #Add DB String to env
+  #Conect Symfony To DB
   dbString="DATABASE_URL='${type}://${user}:${pass}@${host}:${port}/${database}?serverVersion=${version}&charset=utf8mb4'"
   lxc exec ${phpContainerName} -- sed -i '/DATABASE_URL=/d' /var/www/html/.env
   lxc exec ${phpContainerName} -- sed -i "/^###< doctrine\/doctrine-bundle ###.*/a ${dbString}" /var/www/html/.env
+  lxc exec ${phpContainerName} -- php /var/www/html/bin/console doctrine:database:create
 
   updateFruitTestProject ${phpContainerName}
+  return
 }
 
 function recreateFruitTestProject() {
   phpContainerName=${1}
 
   lxc exec ${phpContainerName} -- rm -rf /var/www/html/ * -R
+  removeDataBase ${phpContainerName}
   createFruitTestProject ${phpContainerName}
 
   return
@@ -26,17 +36,13 @@ function recreateFruitTestProject() {
 
 function updateFruitTestProject() {
   echo "Recreate Project = removes project files and resets it including mysql (git clone, composer install)"
-  echo "Full Update = redo database (repopulates) and code (git checkout, composer update etc)"
-  echo "Git Update = clear cache and code update"
+  echo "Git Update = clear cache composer update and code update"
   phpContainerName="$1"
-  select yn in "recreate-project" "full-update" "git-update" "exit"; do
+  select yn in "recreate-project" "update" "exit"; do
     case $yn in
       recreate-project )
         recreateFruitTestProject ${phpContainerName}
 
-        updateFruitTestProject ${phpContainerName}
-        ;;
-      full-update )
         updateFruitTestProject ${phpContainerName}
         ;;
       git-update )
