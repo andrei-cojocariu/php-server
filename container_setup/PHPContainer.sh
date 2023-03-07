@@ -55,15 +55,17 @@ function createPHPContainer() {
   lxc exec ${phpContainerName} -- bash /home/add_lxc_root_password.sh
 
   ips=($(lxc exec ${mysqlContainerName} -- hostname -I))
-  file="temp/php82.tmp"
+  file="temp/php82.sh"
   if [[ ! -f $file ]]; then
     mkdir "temp/"
     cat /dev/null > ${file}
   fi
 
   cat > $file <<EOF
-  php_host=${ips[0]}
-  ftp_port=
+  #! /bin/bash
+
+  ftp_host=${ips[0]}
+  ftp_port=21
   ftp_user=ftp_user
   ftp_pass=ftp_pass
 EOF

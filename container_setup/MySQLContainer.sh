@@ -16,17 +16,21 @@ function createMySQLContainer() {
   lxc exec ${mysqlContainerName} -- systemctl restart mysql.service
 
   ips=($(lxc exec ${mysqlContainerName} -- hostname -I))
-  file="temp/mysql.tmp"
+  file="temp/mysql.sh"
   if [[ ! -f $file ]]; then
     mkdir "temp/"
     cat /dev/null > ${file}
   fi
 
   cat > $file <<EOF
-  mysql_host=${ips[0]}
-  mysql_port=3306
-  mysql_user=root
-  mysql_pass=
+  #! /bin/bash
+
+  type=mysql
+  host=${ips[0]}
+  port=3306
+  user=root
+  pass=
+  version=8
 EOF
 
   return
