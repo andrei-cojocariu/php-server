@@ -1,6 +1,4 @@
 #! /bin/bash
-. ./temp/mysql.sh
-
 function removeDataBase() {
   phpContainerName=${1}
 
@@ -15,6 +13,7 @@ function createFruitTestProject() {
   lxc exec ${phpContainerName} -- composer install -n --working-dir=/var/www/html
 
   #Conect Symfony To DB
+  . ./temp/mysql.sh
   dbString="DATABASE_URL='${type}://${user}:${pass}@${host}:${port}/${database}?serverVersion=${version}&charset=utf8mb4'"
   echo ""
   echo ${dbString}
