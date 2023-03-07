@@ -27,8 +27,9 @@ function createFruitTestProject() {
 function recreateFruitTestProject() {
   phpContainerName=${1}
 
-  lxc exec ${phpContainerName} -- rm -rf /var/www/html/ * -R
   removeDataBase ${phpContainerName}
+
+  lxc exec ${phpContainerName} -- rm -rf /var/www/html/ * -R
   createFruitTestProject ${phpContainerName}
 
   return
