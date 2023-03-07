@@ -15,9 +15,7 @@ function createFruitTestProject() {
   #Conect Symfony To DB
   . ./temp/mysql.sh
   dbString="DATABASE_URL='${type}://${user}:${pass}@${host}:${port}/${database}?serverVersion=${version}&charset=utf8mb4'"
-  echo ""
-  echo ${dbString}
-  echo ""
+
   lxc exec ${phpContainerName} -- sed -i '/DATABASE_URL=/d' /var/www/html/.env
   lxc exec ${phpContainerName} -- sed -i "/^###< doctrine\/doctrine-bundle ###.*/a ${dbString}" /var/www/html/.env
   lxc exec ${phpContainerName} -- php /var/www/html/bin/console doctrine:database:create
