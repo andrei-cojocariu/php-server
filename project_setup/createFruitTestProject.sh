@@ -11,6 +11,8 @@ function createFruitTestProject() {
 
   removeDataBase ${phpContainerName}
 
+  lxc exec ${phpContainerName} -- rm -rf /var/www/html/ * -R
+
   lxc exec ${phpContainerName} -- git clone ${cloneFTTRepo} /var/www/html
   lxc exec ${phpContainerName} -- composer install -n --working-dir=/var/www/html
 
@@ -30,7 +32,6 @@ function createFruitTestProject() {
 function recreateFruitTestProject() {
   phpContainerName=${1}
 
-  lxc exec ${phpContainerName} -- rm -rf /var/www/html/ * -R
   createFruitTestProject ${phpContainerName}
 
   return
