@@ -37,15 +37,15 @@ function createPHPContainer() {
   lxc exec ${phpContainerName} -- php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
   #Install Symfony CLI
-  lxc exec ${phpContainerName} -- curl -sS 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' -o /tmp/symfony-setup.sh
-  lxc exec ${phpContainerName} -- bash /tmp/symfony-setup.sh
-  lxc exec ${phpContainerName} -- apt install symfony-cli
+#  lxc exec ${phpContainerName} -- curl -sS 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' -o /tmp/symfony-setup.sh
+#  lxc exec ${phpContainerName} -- bash /tmp/symfony-setup.sh
+#  lxc exec ${phpContainerName} -- apt install symfony-cli
 
   #Update Document Root for Symfony public and Restart apache2 server
-  lxc exec ${phpContainerName} -- sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/public/g' /etc/apache2/sites-enabled/000-default.conf
-  lxc exec ${phpContainerName} -- sed -i '/^<\/VirtualHost>.*/i <Directory \/var\/www\/html> \n AllowOverride All \n <\/Directory>' /etc/apache2/sites-enabled/000-default.conf
-  lxc exec ${phpContainerName} -- a2enmod rewrite
-  lxc exec ${phpContainerName} -- service apache2 restart
+#  lxc exec ${phpContainerName} -- sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/public/g' /etc/apache2/sites-enabled/000-default.conf
+#  lxc exec ${phpContainerName} -- sed -i '/^<\/VirtualHost>.*/i <Directory \/var\/www\/html> \n AllowOverride All \n <\/Directory>' /etc/apache2/sites-enabled/000-default.conf
+#  lxc exec ${phpContainerName} -- a2enmod rewrite
+#  lxc exec ${phpContainerName} -- service apache2 restart
 
   #Activate FTP Account
   lxc exec ${phpContainerName} -- apt-get install -y vsftpd
