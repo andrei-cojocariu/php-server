@@ -14,14 +14,15 @@ function createPHPContainer() {
   #Install Apache2 LTS
   lxc exec ${phpContainerName} -- apt -y install apache2
   lxc exec ${phpContainerName} -- rm -rf /var/www/html/ * -R
-
-  #install PHP8.2
+  
+  #install PHP8.3
   lxc exec ${phpContainerName} -- apt -y install software-properties-common
   lxc exec ${phpContainerName} -- add-apt-repository -y ppa:ondrej/php
   lxc exec ${phpContainerName} -- apt-get update
-  lxc exec ${phpContainerName} -- apt -y install php8.2
-  lxc exec ${phpContainerName} -- apt-get install -y php8.2-cli php8.2-common php8.2-mysql php8.2-zip php8.2-gd php8.2-mbstring php8.2-curl php8.2-xml php8.2-bcmath  php8.2-mbstring php8.2-xml
+  lxc exec ${phpContainerName} -- apt -y install php8.3
+  lxc exec ${phpContainerName} -- apt-get install -y php8.3-cli php8.3-common php8.3-mysql php8.3-zip php8.3-gd php8.3-mbstring php8.3-curl php8.3-xml php8.3-bcmath  php8.3-mbstring php8.3-xml
   lxc exec ${phpContainerName} -- apt-get install -y php-intl
+  lxc exec ${phpContainerName} -- phpenmod mbstring
 
   #Install Curl
   lxc exec ${phpContainerName} -- apt -y install curl
