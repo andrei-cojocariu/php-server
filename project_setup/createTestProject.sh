@@ -6,7 +6,7 @@ function removeDataBase() {
   return
 }
 
-function createFruitTestProject() {
+function createTestProject() {
   phpContainerName=${1}
 
 #  removeDataBase ${phpContainerName}
@@ -25,31 +25,31 @@ function createFruitTestProject() {
 #  lxc exec ${phpContainerName} -- php /var/www/html/bin/console doctrine:database:create
 #  lxc exec ${phpContainerName} -- php /var/www/html/bin/console doctrine:migrations:migrate
 
-  updateFruitTestProject ${phpContainerName}
+  updateTestProject ${phpContainerName}
   return
 }
 
-function recreateFruitTestProject() {
+function recreateTestProject() {
   phpContainerName=${1}
 
-  createFruitTestProject ${phpContainerName}
+  createTestProject ${phpContainerName}
 
   return
 }
 
-function updateFruitTestProject() {
+function updateTestProject() {
   echo "Recreate Project = removes project files and resets it including mysql (git clone, composer install)"
   echo "Git Update = clear cache composer update and code update"
   phpContainerName="$1"
   select yn in "recreate-project" "update" "exit"; do
     case $yn in
       recreate-project )
-        recreateFruitTestProject ${phpContainerName}
+        recreateTestProject ${phpContainerName}
 
-        updateFruitTestProject ${phpContainerName}
+        updateTestProject ${phpContainerName}
         ;;
       git-update )
-        updateFruitTestProject ${phpContainerName}
+        updateTestProject ${phpContainerName}
         ;;
       exit )
         exit
@@ -60,4 +60,4 @@ function updateFruitTestProject() {
 }
 #
 #ToDo Remove this:
-#updateFruitTestProject "FTT-PHP82"
+#updateTestProject "FTT-PHP82"

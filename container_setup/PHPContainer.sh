@@ -1,5 +1,5 @@
 #! /bin/bash
-. ./src/project_setup/createFruitTestProject.sh
+. ./src/project_setup/createTestProject.sh
 
 phpContainerName="FTT-PHP82"
 
@@ -72,8 +72,8 @@ function createPHPContainer() {
   ftp_pass=ftp_pass
 EOF
 
-  echo "Creating Fruit Test Project;"
-  createFruitTestProject ${phpContainerName}
+  echo "Creating Test Project;"
+  createTestProject ${phpContainerName}
 
   return
 }
@@ -86,8 +86,8 @@ function checkPHPContainer() {
       select yn in "update-project" "recreate-container" "skip"; do
         case $yn in
           update-project)
-              echo "Update Fruit Test Project;"
-              updateFruitTestProject ${phpContainerName}
+              echo "Update Test Project;"
+              updateTestProject ${phpContainerName}
               return
             ;;
           recreate-container )
